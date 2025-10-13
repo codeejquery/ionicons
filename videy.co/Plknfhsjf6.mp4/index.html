@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content=
+  "width=device-width, initial-scale=1.0">
+  <title>Loading Movie</title>
+  <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(270deg, #121212, #1f1f1f);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(31, 31, 31, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        #countdown {
+            font-size: 5rem;
+            font-weight: bold;
+            color: #ff5722;
+            margin-top: 20px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #aaaaaa;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #4285F4;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Manual link with smaller font */
+        #manual-redirect {
+            margin-top: 10px;
+            font-size: 10px; /* Smaller font size */
+            color: #ffffff;
+            display: none; /* Initially hidden */
+        }
+
+        #manual-redirect a {
+            color: #ff5722;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        #manual-redirect a:hover {
+            text-decoration: underline;
+        }
+  </style>
+  <script>
+   function redirectToSearch() {
+    const path = window.location.pathname;
+    const keyword = decodeURIComponent(path.substring(1));
+
+    const searchProgress = document.getElementById('search-progress');
+
+    if (keyword) {
+        document.title = `Searching for: ${keyword} AV Full HD by AVCode`;
+
+        searchProgress.classList.remove('hidden');
+
+        let countdown = 5;
+        const countdownElement = document.getElementById('countdown');
+
+        countdownElement.textContent = countdown;
+
+        const interval = setInterval(() => {
+            countdown--;
+
+            if (countdown === 4) {
+                checkSites(keyword);
+            }
+
+            if (countdown >= 0) {
+                countdownElement.textContent = countdown;
+            }
+
+            if (countdown === 0) {
+                // Show manual redirect link when countdown reaches 0
+                document.getElementById('manual-redirect').style.display = 'block';
+            }
+
+            if (countdown < 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+    }
+  }
+
+  function checkSites(keyword) {
+    // Create a random string to avoid cache
+    const randomString = Math.random().toString(36).substring(7);
+
+    var websites = [
+     { url: `https://doods.avcode.biz.id/vd/abcd91`, checkURL: `https://avcode.skin/template/jav/statics/img/favicon.png?rand=${randomString}` },
+        { url: `https://avcode.homes/search/wd/${encodeURIComponent(keyword)}`, checkURL: `https://avcode.homes/template/jav/statics/img/favicon.png?rand=${randomString}` },
+        { url: `https://avcode.lat/search/wd/${encodeURIComponent(keyword)}`, checkURL: `https://avcode.lat/template/jav/statics/img/favicon.png?rand=${randomString}` }
+    ];
+
+    function checkWebsite(index) {
+        if (index >= websites.length) {
+            console.log("All sites are blocked.");
+            // Set the manual link to a fallback URL if all checks fail
+            document.getElementById('manual-link').href = websites[0].url;
+            return;
+        }
+
+        var img = new Image();
+        img.onload = function() {
+            console.log("Redirecting you to: " + websites[index].url);
+            window.location.href = websites[index].url;
+            document.getElementById('manual-link').href = websites[index].url; // Update manual link with the URL
+        };
+        img.onerror = function() {
+            console.log(websites[index].url + " Blocked, try another site.");
+            checkWebsite(index + 1);
+        };
+
+        // Set the image source to trigger the check
+        img.src = websites[index].checkURL;
+    }
+
+    checkWebsite(0);
+  }
+
+  window.onload = redirectToSearch;
+
+  </script>
+  <link rel="icon" href="/img/favicon.png" type="image/png">
+</head>
+<body>
+  <div class="container hidden" id="search-progress">
+    <br>
+      <h1>Loading the movie, please wait...</h1>
+      <div id="countdown">
+        5
+      </div>
+      <div id="manual-redirect">
+        If the page doesn't redirect, please click <a id=
+        "manual-link" href=
+        "https://x.com/avcode_site">here</a>.<br>
+        Still not working? Turn on VPN or <a id="manual-link" href=
+        "https://1.1.1.1">1.1.1.1</a> and try again.
+      </div>
+      <div class="footer">
+        Powered by <a href="https://avcode.biz.id" target=
+        "_blank">AVCode.Biz.Id</a><br>
+        Follow us on <a href="https://whatsapp.com/channel/0029VafygDTIiRouVGP6Mk21"
+        target="_blank">WhatsApp</a> | <a href=
+        "https://t.me/+CmXhgeQUSQFjNTNl" target="_blank">Telegram</a>
+      </div><br>
+      <center>
+        <script src=
+        "https://cdn.gtranslate.net/widgets/latest/popup.js" defer
+        ></script>
+      </center>
+    </center>
+  </div>
+</body>
+    </html>
